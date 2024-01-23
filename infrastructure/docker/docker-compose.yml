@@ -1,0 +1,20 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8081:8080"
+    environment:
+      - DATABASE_URL="jdbc:mysql://localhost:3306/url-shortener"
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: "2048M"
+  database:
+    image: mysql:8.2.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ../database":"/docker-entrypoint-initdb.d/"
